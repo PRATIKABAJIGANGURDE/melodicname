@@ -45,10 +45,14 @@ export default function Auth() {
       console.log('Starting Google login...');
       console.log('Current URL:', window.location.origin);
       
+      const redirectUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://melodicname.vercel.app/auth'
+        : `${window.location.origin}/auth`;
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth`,
+          redirectTo: redirectUrl,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
@@ -126,7 +130,9 @@ export default function Auth() {
           {/* Debug info in development */}
           {import.meta.env.DEV && (
             <div className="mt-4 text-xs text-muted-foreground">
-              <p>Redirect URL: {window.location.origin}/auth</p>
+              <p>Redirect URL: {process.env.NODE_ENV === 'production' 
+                ? 'https://melodicname.vercel.app/auth'
+                : `${window.location.origin}/auth`}</p>
               <p>Make sure this URL is added to your Google OAuth and Supabase settings</p>
             </div>
           )}
