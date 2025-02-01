@@ -11,46 +11,68 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Check for authentication callback
-    const handleAuthCallback = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      
-      if (error) {
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive",
-        });
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('Auth state changed:', event, session);
+      if (event === 'SIGNED_IN') {
+        navigate("/dashboard");
       }
+    });
 
-      if (session) {
-        navigate('/dashboard');
-      }
+    checkUser();
+
+    return () => {
+      authListener.subscription.unsubscribe();
     };
+  }, [navigate]);
 
-    handleAuthCallback();
-  }, [navigate, toast]);
+  async function checkUser() {
+    try {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error) throw error;
+      
+      if (user) {
+        console.log('User already logged in:', user);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.error('Error checking user:', error);
+    }
+  }
 
   const handleGoogleLogin = async () => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+      console.log('Starting Google login...');
+      console.log('Current URL:', window.location.origin);
+      
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/dashboard`,
+          redirectTo: `${window.location.origin}/auth`,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
           },
-        }
+        },
       });
+
+      if (error) {
+        console.error('Google login error:', error);
+        toast({
+          title: "Login Error",
+          description: error.message,
+          variant: "destructive",
+        });
+        throw error;
+      }
+
+      console.log('Google login response:', data);
       
-      if (error) throw error;
     } catch (error: any) {
-      console.error('Error:', error);
+      console.error("Error logging in with Google:", error);
       toast({
-        title: "Error",
-        description: error.message || "An error occurred during sign in. Please try again.",
+        title: "Login Failed",
+        description: error.message || "Failed to login with Google",
         variant: "destructive",
       });
     } finally {
@@ -104,7 +126,7 @@ export default function Auth() {
           {/* Debug info in development */}
           {import.meta.env.DEV && (
             <div className="mt-4 text-xs text-muted-foreground">
-              <p>Redirect URL: {window.location.origin}/dashboard</p>
+              <p>Redirect URL: {window.location.origin}/auth</p>
               <p>Make sure this URL is added to your Google OAuth and Supabase settings</p>
             </div>
           )}
