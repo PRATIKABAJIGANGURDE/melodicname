@@ -43,11 +43,13 @@ export default function Auth() {
     try {
       setLoading(true);
       console.log('Starting Google login...');
-      console.log('Current URL:', window.location.origin);
       
+      // Ensure proper URL formatting without extra colons
       const redirectUrl = process.env.NODE_ENV === 'production' 
         ? 'https://melodicname.vercel.app/auth'
         : `${window.location.origin}/auth`;
+
+      console.log('Redirect URL:', redirectUrl);
 
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
