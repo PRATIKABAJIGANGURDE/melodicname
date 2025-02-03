@@ -189,10 +189,16 @@ export default function Dashboard() {
     try {
       const { error } = await supabase
         .from('song_requests')
-        .update({ status: 'completed' })
+        .update({ 
+          status: 'completed',
+          updated_at: new Date().toISOString()
+        })
         .eq('id', songId);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error updating song status:', error);
+        throw error;
+      }
 
       toast({
         title: "Status Updated",
@@ -361,7 +367,7 @@ export default function Dashboard() {
                     <TableCell>{song.recipient}</TableCell>
                     <TableCell>{song.genre}</TableCell>
                     <TableCell className="flex items-center gap-2">
-                      <span className={`px-2 py-1 rounded-full text-sm ${
+                      <span className={`px-2 py-1 rounded-full text-xs ${
                         song.status === 'completed' 
                           ? 'bg-green-100 text-green-800' 
                           : 'bg-yellow-100 text-yellow-800'
@@ -373,9 +379,9 @@ export default function Dashboard() {
                           variant="outline"
                           size="sm"
                           onClick={() => handleSongReceived(song.id)}
-                          className="ml-2"
+                          className="h-6 px-2 text-xs font-medium"
                         >
-                          Song Received
+                          ✓ Received
                         </Button>
                       )}
                     </TableCell>
