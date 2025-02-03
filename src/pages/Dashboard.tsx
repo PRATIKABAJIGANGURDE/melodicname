@@ -185,6 +185,34 @@ export default function Dashboard() {
     }
   };
 
+  const handleSongReceived = async (songId: string) => {
+    try {
+      const { error } = await supabase
+        .from('song_requests')
+        .update({ status: 'completed' })
+        .eq('id', songId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Status Updated",
+        description: "Song has been marked as received!",
+      });
+
+      // Refresh the songs list
+      if (user?.id) {
+        fetchUserSongs(user.id);
+      }
+    } catch (error) {
+      console.error('Error updating song status:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update song status",
+        variant: "destructive",
+      });
+    }
+  };
+
   useEffect(() => {
     checkUser();
   }, []);
@@ -329,15 +357,27 @@ export default function Dashboard() {
               <TableBody>
                 {songs.map((song) => (
                   <TableRow key={song.id}>
-                    <TableCell className="font-medium">{song.song_name}</TableCell>
+                    <TableCell>{song.song_name}</TableCell>
                     <TableCell>{song.recipient}</TableCell>
                     <TableCell>{song.genre}</TableCell>
-                    <TableCell>
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        song.status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                    <TableCell className="flex items-center gap-2">
+                      <span className={`px-2 py-1 rounded-full text-sm ${
+                        song.status === 'completed' 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-yellow-100 text-yellow-800'
                       }`}>
                         {song.status}
                       </span>
+                      {song.status === 'pending' && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleSongReceived(song.id)}
+                          className="ml-2"
+                        >
+                          Song Received
+                        </Button>
+                      )}
                     </TableCell>
                     <TableCell>{new Date(song.created_at).toLocaleDateString()}</TableCell>
                   </TableRow>
