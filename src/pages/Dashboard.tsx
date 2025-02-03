@@ -30,9 +30,15 @@ interface UserData {
 interface SongData {
   id: string;
   created_at: string;
-  song_name: string;
+  user_id: string;
+  artist_name: string;
   recipient: string;
   genre: string;
+  song_name: string;
+  whatsapp: string;
+  email: string;
+  photo_url: string | null;
+  additional_notes: string;
   status: string;
 }
 
@@ -92,7 +98,7 @@ export default function Dashboard() {
   async function fetchUserSongs(userId: string) {
     try {
       const { data, error } = await supabase
-        .from('songs')
+        .from('song_requests')
         .select('*')
         .eq('user_id', userId)
         .order('created_at', { ascending: false });
