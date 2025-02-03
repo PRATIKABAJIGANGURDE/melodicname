@@ -186,6 +186,28 @@ export default function Dashboard() {
   useEffect(() => {
     if (user?.id) {
       fetchUserSongs(user.id);
+
+      // Subscribe to changes in the songs table
+      const subscription = supabase
+        .channel('songs_channel')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'songs',
+            filter: `user_id=eq.${user.id}`,
+          },
+          () => {
+            fetchUserSongs(user.id);
+          }
+        )
+        .subscribe();
+
+      // Cleanup subscription on unmount
+      return () => {
+        subscription.unsubscribe();
+      };
     }
   }, [user]);
 
