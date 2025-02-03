@@ -190,8 +190,7 @@ export default function Dashboard() {
       const { error } = await supabase
         .from('song_requests')
         .update({ 
-          status: 'completed',
-          updated_at: new Date().toISOString()
+          status: 'completed'
         })
         .eq('id', songId);
 
