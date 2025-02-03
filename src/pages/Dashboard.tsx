@@ -194,25 +194,30 @@ export default function Dashboard() {
       fetchUserSongs(user.id);
 
       // Subscribe to changes in the songs table
-      const subscription = supabase
+      const songsSubscription = supabase
         .channel('songs_channel')
         .on(
           'postgres_changes',
           {
             event: '*',
             schema: 'public',
-            table: 'songs',
+            table: 'song_requests',
             filter: `user_id=eq.${user.id}`,
           },
-          () => {
+          async () => {
+            // Refresh both songs and user profile
             fetchUserSongs(user.id);
+            const updatedProfile = await getUserProfile(user.id);
+            if (updatedProfile) {
+              setUser(updatedProfile);
+            }
           }
         )
         .subscribe();
 
       // Cleanup subscription on unmount
       return () => {
-        subscription.unsubscribe();
+        songsSubscription.unsubscribe();
       };
     }
   }, [user]);
