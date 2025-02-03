@@ -190,7 +190,8 @@ export default function Dashboard() {
       const { error } = await supabase
         .from('song_requests')
         .update({ 
-          status: 'completed'
+          status: 'completed',
+          updated_at: new Date().toISOString()
         })
         .eq('id', songId);
 
@@ -355,7 +356,6 @@ export default function Dashboard() {
                   <TableHead>Song Name</TableHead>
                   <TableHead>Recipient</TableHead>
                   <TableHead>Genre</TableHead>
-                  <TableHead>Status</TableHead>
                   <TableHead>Created</TableHead>
                 </TableRow>
               </TableHeader>
@@ -365,31 +365,12 @@ export default function Dashboard() {
                     <TableCell>{song.song_name}</TableCell>
                     <TableCell>{song.recipient}</TableCell>
                     <TableCell>{song.genre}</TableCell>
-                    <TableCell className="flex items-center gap-2">
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        song.status === 'completed' 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {song.status}
-                      </span>
-                      {song.status === 'pending' && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleSongReceived(song.id)}
-                          className="h-6 px-2 text-xs font-medium"
-                        >
-                          ✓ Received
-                        </Button>
-                      )}
-                    </TableCell>
                     <TableCell>{new Date(song.created_at).toLocaleDateString()}</TableCell>
                   </TableRow>
                 ))}
                 {songs.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
+                    <TableCell colSpan={4} className="text-center text-muted-foreground py-8">
                       No songs created yet. Click "Create New Song" to get started!
                     </TableCell>
                   </TableRow>
