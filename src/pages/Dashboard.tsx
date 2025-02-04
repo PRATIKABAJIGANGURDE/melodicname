@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import PremiumPlanModal from "@/components/PremiumPlanModal";
 
 interface UserData {
   id: string;
@@ -54,6 +55,7 @@ export default function Dashboard() {
     pendingSongs: 0,
     favoriteGenre: '',
   });
+  const [showPremiumPlanModal, setShowPremiumPlanModal] = useState(false);
 
   async function createUserProfile(authUser: any) {
     try {
@@ -335,7 +337,7 @@ export default function Dashboard() {
                 <p className="font-medium">{new Date(user?.created_at || '').toLocaleDateString()}</p>
               </div>
             </div>
-            <button onClick={() => window.location.href='upgrade.html'}>Upgrade to Premium</button>
+            <button onClick={() => setShowPremiumPlanModal(true)} style={{ padding: '10px 20px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Upgrade to Premium</button>
           </CardContent>
         </Card>
 
@@ -376,6 +378,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
+      <PremiumPlanModal open={showPremiumPlanModal} onOpenChange={setShowPremiumPlanModal} />
     </div>
   );
 }
