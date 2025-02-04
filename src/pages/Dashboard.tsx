@@ -337,7 +337,7 @@ export default function Dashboard() {
                 <p className="font-medium">{new Date(user?.created_at || '').toLocaleDateString()}</p>
               </div>
             </div>
-            <button onClick={() => setShowPremiumPlanModal(true)} style={{ padding: '10px 20px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Upgrade to Premium</button>
+            <button onClick={() => setShowPremiumPlanModal(true)} className="bg-primary hover:bg-primary/90 transition-all duration-200 text-white py-2 px-4 rounded">Upgrade to Premium</button>
           </CardContent>
         </Card>
 
