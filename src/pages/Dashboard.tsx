@@ -335,11 +335,7 @@ export default function Dashboard() {
                 <p className="font-medium">{new Date(user?.created_at || '').toLocaleDateString()}</p>
               </div>
             </div>
-            {!user?.is_premium && (
-              <Button variant="outline" className="w-full mt-4">
-                Upgrade to Premium
-              </Button>
-            )}
+            <button onClick={() => window.location.href='upgrade.html'}>Upgrade to Premium</button>
           </CardContent>
         </Card>
 
