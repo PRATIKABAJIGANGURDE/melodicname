@@ -7,6 +7,8 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import Pricing from "./pages/Pricing";
+import Navbar from "./components/Navbar";
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 
@@ -48,24 +50,19 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route
-              path="/dashboard"
-              element={
-                isAuthenticated ? (
-                  <Dashboard />
-                ) : (
-                  <Navigate to="/auth" replace />
-                )
-              }
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          {isAuthenticated && <Navbar />}
+          <div className="min-h-screen bg-background">
+            <Routes>
+              <Route path="/" element={!isAuthenticated ? <Index /> : <Navigate to="/dashboard" />} />
+              <Route path="/auth" element={!isAuthenticated ? <Auth /> : <Navigate to="/dashboard" />} />
+              <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/auth" />} />
+              <Route path="/pricing" element={isAuthenticated ? <Pricing /> : <Navigate to="/auth" />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+          <Toaster />
+          <Sonner />
         </BrowserRouter>
-        <Toaster />
-        <Sonner />
       </TooltipProvider>
     </QueryClientProvider>
   );
