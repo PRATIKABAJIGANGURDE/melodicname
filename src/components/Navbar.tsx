@@ -16,7 +16,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-          <link rel="icon" type="image/x-icon" href="/favicon.ico" /> 
+          <img src="/favicon.ico" alt="Logo" className="h-8 w-8 mr-2" />
             <Link to="/" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
               MelodicName
             </Link>
