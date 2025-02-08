@@ -51,7 +51,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <BrowserRouter>
-          {isAuthenticated && <Navbar />}
+          {isAuthenticated && window.location.pathname !== '/SongCreationForm' && <Navbar />}
           <div className="min-h-screen bg-background">
             <Routes>
               <Route path="/" element={!isAuthenticated ? <Index /> : <Navigate to="/dashboard" />} />

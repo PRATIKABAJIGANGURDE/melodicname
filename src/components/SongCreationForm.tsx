@@ -271,137 +271,156 @@ const SongCreationForm = () => {
 
   return (
     <>
-      <Card className="w-full max-w-2xl mx-auto p-6 glass-card space-y-8 relative z-10">
-        <div className="space-y-2 text-center">
-          <h2 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Create Your Song</h2>
-          <p className="text-muted-foreground">
-            Fill in the details and let AI create a unique song just for you
-          </p>
+      {/* Simple Header */}
+      <div className="border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <img src="/favicon.ico" alt="Logo" className="h-8 w-8 mr-2" />
+              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+                MelodicName
+              </span>
+            </div>
+            <Button variant="ghost" onClick={() => navigate('/dashboard')}>
+              Back to Dashboard
+            </Button>
+          </div>
         </div>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="artistName">Song Creator Name</Label>
-              <Input
-                id="artistName"
-                placeholder="Enter your name"
-                className="transition-all duration-200 focus:ring-2 focus:ring-primary"
-                required
-                value={formData.artistName}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="recipient">For Whom</Label>
-              <Input
-                id="recipient"
-                placeholder="Who is this song for?"
-                className="transition-all duration-200 focus:ring-2 focus:ring-primary"
-                required
-                value={formData.recipient}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>Genre</Label>
-              <Select value={selectedGenre} onValueChange={setSelectedGenre}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a genre" />
-                </SelectTrigger>
-                <SelectContent>
-                  {genres.map((genre) => (
-                    <SelectItem key={genre} value={genre}>
-                      {genre}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="songName">Suggested Song Name</Label>
-              <Input
-                id="songName"
-                placeholder="Enter a name for your song"
-                className="transition-all duration-200 focus:ring-2 focus:ring-primary"
-                required
-                value={formData.songName}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="whatsapp">WhatsApp Number</Label>
-              <Input
-                id="whatsapp"
-                type="tel"
-                placeholder="Enter your WhatsApp number"
-                className="transition-all duration-200 focus:ring-2 focus:ring-primary"
-                required
-                value={formData.whatsapp}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Enter your email"
-                className="transition-all duration-200 focus:ring-2 focus:ring-primary"
-                required
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="photo">Photo (Optional)</Label>
-              <Input
-                id="photo"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="transition-all duration-200 focus:ring-2 focus:ring-primary"
-              />
-              {imagePreview && (
-                <div className="mt-2 relative w-32 h-32">
-                  <img
-                    src={imagePreview}
-                    alt="Preview"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="additional">Additional Notes (Optional)</Label>
-              <Textarea
-                id="additional"
-                placeholder="Any specific requirements or details you'd like to add?"
-                className="transition-all duration-200 focus:ring-2 focus:ring-primary"
-                value={formData.additional}
-                onChange={handleInputChange}
-              />
-            </div>
+      <div className="container mx-auto py-8">
+        <Card className="w-full max-w-2xl mx-auto p-6 glass-card space-y-8 relative z-10">
+          <div className="space-y-2 text-center">
+            <h2 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Create Your Song</h2>
+            <p className="text-muted-foreground">
+              Fill in the details and let AI create a unique song just for you
+            </p>
           </div>
 
-          <Button
-            type="submit"
-            className="w-full bg-primary hover:bg-primary/90 transition-all duration-200"
-            disabled={isSubmitting || (userProfile && !userProfile.is_premium && userProfile.free_songs_remaining <= 0)}
-          >
-            {isSubmitting ? "Submitting..." : userProfile && !userProfile.is_premium && userProfile.free_songs_remaining <= 0 
-              ? "No Free Songs Remaining" 
-              : "Create My Song"}
-          </Button>
-        </form>
-      </Card>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="artistName">Song Creator Name</Label>
+                <Input
+                  id="artistName"
+                  placeholder="Enter your name"
+                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  required
+                  value={formData.artistName}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="recipient">For Whom</Label>
+                <Input
+                  id="recipient"
+                  placeholder="Who is this song for?"
+                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  required
+                  value={formData.recipient}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Genre</Label>
+                <Select value={selectedGenre} onValueChange={setSelectedGenre}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a genre" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {genres.map((genre) => (
+                      <SelectItem key={genre} value={genre}>
+                        {genre}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="songName">Suggested Song Name</Label>
+                <Input
+                  id="songName"
+                  placeholder="Enter a name for your song"
+                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  required
+                  value={formData.songName}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="whatsapp">WhatsApp Number</Label>
+                <Input
+                  id="whatsapp"
+                  type="tel"
+                  placeholder="Enter your WhatsApp number"
+                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  required
+                  value={formData.whatsapp}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  required
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="photo">Photo (Optional)</Label>
+                <Input
+                  id="photo"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                />
+                {imagePreview && (
+                  <div className="mt-2 relative w-32 h-32">
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="additional">Additional Notes (Optional)</Label>
+                <Textarea
+                  id="additional"
+                  placeholder="Any specific requirements or details you'd like to add?"
+                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  value={formData.additional}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full bg-primary hover:bg-primary/90 transition-all duration-200"
+              disabled={isSubmitting || (userProfile && !userProfile.is_premium && userProfile.free_songs_remaining <= 0)}
+            >
+              {isSubmitting ? "Submitting..." : userProfile && !userProfile.is_premium && userProfile.free_songs_remaining <= 0 
+                ? "No Free Songs Remaining" 
+                : "Create My Song"}
+            </Button>
+          </form>
+        </Card>
+      </div>
       <PremiumPlanModal 
         open={showPremiumModal}
         onOpenChange={setShowPremiumModal}
