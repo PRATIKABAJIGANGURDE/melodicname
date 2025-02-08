@@ -171,9 +171,14 @@ export default function Dashboard() {
   }
 
   const handleCreateSong = () => {
+    console.log('Create Song clicked');
+    console.log('User:', user);
+    console.log('Free songs remaining:', user?.free_songs_remaining);
     if (user && user.free_songs_remaining > 0) {
+      console.log('Navigating to /SongCreationForm');
       navigate('/SongCreationForm');
     } else {
+      console.log('Showing premium plan modal');
       setShowPremiumPlanModal(true);
     }
   };
