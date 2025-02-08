@@ -362,46 +362,6 @@ const SongCreationForm = () => {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-gray-700 dark:text-gray-200">Genre</Label>
-                <Select value={selectedGenre} onValueChange={setSelectedGenre}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a genre" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {genres.map((genre) => (
-                      <SelectItem key={genre} value={genre}>
-                        {genre}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label className="text-gray-700 dark:text-gray-200">Language</Label>
-                <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a language" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="" disabled>Choose a language</SelectItem>
-                    <SelectItem value="" disabled className="font-semibold text-primary">Indian Languages</SelectItem>
-                    {languages.slice(0, 11).map((language) => (
-                      <SelectItem key={language} value={language}>
-                        {language}
-                      </SelectItem>
-                    ))}
-                    <SelectItem value="" disabled className="font-semibold text-primary">International Languages</SelectItem>
-                    {languages.slice(11).map((language) => (
-                      <SelectItem key={language} value={language}>
-                        {language}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
                 <Label htmlFor="songName" className="text-gray-700 dark:text-gray-200">Suggested Song Name</Label>
                 <Input
                   id="songName"
