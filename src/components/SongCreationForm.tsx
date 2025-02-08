@@ -28,10 +28,37 @@ const genres = [
   "Electronic",
 ];
 
+const languages = [
+  // Indian Languages
+  "Hindi",
+  "Marathi",
+  "Bengali",
+  "Tamil",
+  "Telugu",
+  "Kannada",
+  "Malayalam",
+  "Gujarati",
+  "Punjabi",
+  "Urdu",
+  "Bhojpuri",
+  // International Languages
+  "English",
+  "Spanish",
+  "French",
+  "German",
+  "Japanese",
+  "Korean",
+  "Arabic",
+  "Portuguese",
+  "Russian",
+  "Italian"
+];
+
 const SongCreationForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [selectedGenre, setSelectedGenre] = useState<string>("");
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
@@ -156,6 +183,15 @@ const SongCreationForm = () => {
       return;
     }
 
+    if (!selectedLanguage) {
+      toast({
+        title: "Error",
+        description: "Please select a language",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -210,6 +246,7 @@ const SongCreationForm = () => {
             artist_name: formData.artistName,
             recipient: formData.recipient,
             genre: selectedGenre,
+            language: selectedLanguage,
             song_name: formData.songName,
             whatsapp: formData.whatsapp,
             email: formData.email,
@@ -252,6 +289,7 @@ const SongCreationForm = () => {
         additional: "",
       });
       setSelectedGenre("");
+      setSelectedLanguage("");
       setImagePreview(null);
 
       // Redirect to home page after successful submission
@@ -333,6 +371,30 @@ const SongCreationForm = () => {
                     {genres.map((genre) => (
                       <SelectItem key={genre} value={genre}>
                         {genre}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Language</Label>
+                <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a language" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="" disabled>Choose a language</SelectItem>
+                    <SelectItem value="" disabled className="font-semibold text-primary">Indian Languages</SelectItem>
+                    {languages.slice(0, 11).map((language) => (
+                      <SelectItem key={language} value={language}>
+                        {language}
+                      </SelectItem>
+                    ))}
+                    <SelectItem value="" disabled className="font-semibold text-primary">International Languages</SelectItem>
+                    {languages.slice(11).map((language) => (
+                      <SelectItem key={language} value={language}>
+                        {language}
                       </SelectItem>
                     ))}
                   </SelectContent>
