@@ -171,7 +171,11 @@ export default function Dashboard() {
   }
 
   const handleCreateSong = () => {
-    navigate('/SongCreationForm');
+    if (user && user.free_songs_remaining > 0) {
+      navigate('/SongCreationForm');
+    } else {
+      setShowPremiumPlanModal(true);
+    }
   };
 
   const handleSignOut = async () => {
