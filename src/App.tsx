@@ -3,7 +3,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { SpeedInsights } from "@vercel/speed-insights/next"
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
@@ -52,14 +51,14 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <BrowserRouter>
-          {isAuthenticated && window.location.pathname !== '/SongCreationForm' && <Navbar />}
+          {isAuthenticated && window.location.pathname !== '/song-creation-form' && <Navbar />}
           <div className="min-h-screen bg-background">
             <Routes>
               <Route path="/" element={!isAuthenticated ? <Index /> : <Navigate to="/dashboard" />} />
               <Route path="/auth" element={!isAuthenticated ? <Auth /> : <Navigate to="/dashboard" />} />
               <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/auth" />} />
               <Route path="/pricing" element={isAuthenticated ? <Pricing /> : <Navigate to="/auth" />} />
-              <Route path="/SongCreationForm" element={isAuthenticated ? <SongCreationForm /> : <Navigate to="/auth" />} />
+              <Route path="/song-creation-form" element={isAuthenticated ? <SongCreationForm /> : <Navigate to="/auth" />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

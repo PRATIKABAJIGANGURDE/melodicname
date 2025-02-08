@@ -175,8 +175,8 @@ export default function Dashboard() {
     console.log('User:', user);
     console.log('Free songs remaining:', user?.free_songs_remaining);
     if (user && user.free_songs_remaining > 0) {
-      console.log('Navigating to /SongCreationForm');
-      navigate('/SongCreationForm');
+      console.log('Navigating to /song-creation-form');
+      navigate('/song-creation-form');
     } else {
       console.log('Showing premium plan modal');
       setShowPremiumPlanModal(true);

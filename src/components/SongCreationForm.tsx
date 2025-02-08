@@ -308,9 +308,9 @@ const SongCreationForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Simple Header */}
-      <div className="border-b bg-background">
+      <div className="border-b bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
@@ -327,10 +327,10 @@ const SongCreationForm = () => {
       </div>
 
       <div className="container mx-auto py-8 px-4">
-        <Card className="w-full max-w-2xl mx-auto p-6 bg-card">
+        <Card className="w-full max-w-2xl mx-auto p-6 bg-white dark:bg-gray-800 shadow-lg">
           <div className="space-y-2 text-center">
             <h2 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Create Your Song</h2>
-            <p className="text-muted-foreground">
+            <p className="text-gray-600 dark:text-gray-300">
               Fill in the details and let AI create a unique song just for you
             </p>
           </div>
@@ -338,11 +338,11 @@ const SongCreationForm = () => {
           <form onSubmit={handleSubmit} className="space-y-6 mt-8">
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="artistName">Song Creator Name</Label>
+                <Label htmlFor="artistName" className="text-gray-700 dark:text-gray-200">Song Creator Name</Label>
                 <Input
                   id="artistName"
                   placeholder="Enter your name"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 border rounded-md dark:border-gray-600 dark:bg-gray-700"
                   required
                   value={formData.artistName}
                   onChange={handleInputChange}
@@ -350,11 +350,11 @@ const SongCreationForm = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="recipient">For Whom</Label>
+                <Label htmlFor="recipient" className="text-gray-700 dark:text-gray-200">For Whom</Label>
                 <Input
                   id="recipient"
                   placeholder="Who is this song for?"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 border rounded-md dark:border-gray-600 dark:bg-gray-700"
                   required
                   value={formData.recipient}
                   onChange={handleInputChange}
@@ -362,7 +362,7 @@ const SongCreationForm = () => {
               </div>
 
               <div className="space-y-2">
-                <Label>Genre</Label>
+                <Label className="text-gray-700 dark:text-gray-200">Genre</Label>
                 <Select value={selectedGenre} onValueChange={setSelectedGenre}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a genre" />
@@ -378,7 +378,7 @@ const SongCreationForm = () => {
               </div>
 
               <div className="space-y-2">
-                <Label>Language</Label>
+                <Label className="text-gray-700 dark:text-gray-200">Language</Label>
                 <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a language" />
@@ -402,11 +402,11 @@ const SongCreationForm = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="songName">Suggested Song Name</Label>
+                <Label htmlFor="songName" className="text-gray-700 dark:text-gray-200">Suggested Song Name</Label>
                 <Input
                   id="songName"
                   placeholder="Enter a name for your song"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 border rounded-md dark:border-gray-600 dark:bg-gray-700"
                   required
                   value={formData.songName}
                   onChange={handleInputChange}
@@ -414,12 +414,12 @@ const SongCreationForm = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="whatsapp">WhatsApp Number</Label>
+                <Label htmlFor="whatsapp" className="text-gray-700 dark:text-gray-200">WhatsApp Number</Label>
                 <Input
                   id="whatsapp"
                   type="tel"
                   placeholder="Enter your WhatsApp number"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 border rounded-md dark:border-gray-600 dark:bg-gray-700"
                   required
                   value={formData.whatsapp}
                   onChange={handleInputChange}
@@ -427,12 +427,12 @@ const SongCreationForm = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-gray-700 dark:text-gray-200">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="Enter your email"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 border rounded-md dark:border-gray-600 dark:bg-gray-700"
                   required
                   value={formData.email}
                   onChange={handleInputChange}
@@ -440,13 +440,13 @@ const SongCreationForm = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="photo">Photo (Optional)</Label>
+                <Label htmlFor="photo" className="text-gray-700 dark:text-gray-200">Photo (Optional)</Label>
                 <Input
                   id="photo"
                   type="file"
                   accept="image/*"
                   onChange={handleImageChange}
-                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 border rounded-md dark:border-gray-600 dark:bg-gray-700"
                 />
                 {imagePreview && (
                   <div className="mt-2 relative w-32 h-32">
@@ -460,11 +460,11 @@ const SongCreationForm = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="additional">Additional Notes (Optional)</Label>
+                <Label htmlFor="additional" className="text-gray-700 dark:text-gray-200">Additional Notes (Optional)</Label>
                 <Textarea
                   id="additional"
                   placeholder="Any specific requirements or details you'd like to add?"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 border rounded-md dark:border-gray-600 dark:bg-gray-700"
                   value={formData.additional}
                   onChange={handleInputChange}
                 />
