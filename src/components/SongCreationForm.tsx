@@ -308,9 +308,9 @@ const SongCreationForm = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-background">
       {/* Simple Header */}
-      <div className="border-b">
+      <div className="border-b bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
@@ -326,8 +326,8 @@ const SongCreationForm = () => {
         </div>
       </div>
 
-      <div className="container mx-auto py-8">
-        <Card className="w-full max-w-2xl mx-auto p-6 glass-card space-y-8 relative z-10">
+      <div className="container mx-auto py-8 px-4">
+        <Card className="w-full max-w-2xl mx-auto p-6 bg-card">
           <div className="space-y-2 text-center">
             <h2 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Create Your Song</h2>
             <p className="text-muted-foreground">
@@ -335,7 +335,7 @@ const SongCreationForm = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 mt-8">
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="artistName">Song Creator Name</Label>
@@ -487,7 +487,7 @@ const SongCreationForm = () => {
         open={showPremiumModal}
         onOpenChange={setShowPremiumModal}
       />
-    </>
+    </div>
   );
 };
 
