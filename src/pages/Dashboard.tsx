@@ -171,7 +171,7 @@ export default function Dashboard() {
   }
 
   const handleCreateSong = () => {
-    navigate('/');
+    navigate('/src/components/SongCreationForm');
   };
 
   const handleSignOut = async () => {
